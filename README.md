@@ -7,7 +7,7 @@ A modern, responsive herbal wellness e-commerce website built with **React, Vite
 # ⭐ Project Overview
 
 Healthy Herbal Web is a modern herbal wellness e-commerce application developed using React, Vite, Tailwind CSS, Node.js, and Express.js. The application focuses on delivering a clean, responsive, and premium shopping experience with realistic AI-enhanced product visuals. It features product browsing, category filtering, search, wishlist, shopping cart, local authentication, responsive layouts, and reusable components. The project uses local product data without a database, making it lightweight and easy to deploy while demonstrating full-stack architecture and modern frontend development practices.
----
+
 
 # ✨ Features
 
