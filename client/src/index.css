@@ -1,0 +1,278 @@
+@import "tailwindcss";
+
+/* ============================================================
+   HEALTHY HERBAL — DESIGN SYSTEM v2
+   Dark luxury apothecary: matte black & charcoal surfaces, deep
+   emerald as the living accent, warm gold as the rare highlight,
+   soft glass panels and a green glow that reads "premium plant lab"
+   rather than generic dark-mode.
+   ============================================================ */
+@theme {
+  --font-display: "Fraunces", "Iowan Old Style", ui-serif, Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Black / charcoal — the canvas */
+  --color-black-950: #060807;
+  --color-black-900: #0a0d0a;
+  --color-charcoal-850: #10140f;
+  --color-charcoal-800: #161b15;
+  --color-charcoal-700: #1e251c;
+  --color-charcoal-600: #2a3327;
+
+  /* Emerald — the living accent */
+  --color-emerald-950: #061f14;
+  --color-emerald-900: #0a2c1c;
+  --color-emerald-800: #0f3d27;
+  --color-emerald-700: #145233;
+  --color-emerald-600: #1a6e42;
+  --color-emerald-500: #22914f;
+  --color-emerald-400: #35b968;
+  --color-emerald-300: #6bd992;
+
+  /* Gold — the rare highlight */
+  --color-gold-300: #f2e2b6;
+  --color-gold-400: #e3c37c;
+  --color-gold-500: #cda155;
+  --color-gold-600: #a87f3d;
+
+  /* White / mist — typography */
+  --color-white-100: #f8f9f5;
+  --color-mist-300: #c8d0c4;
+  --color-mist-500: #93a091;
+  --color-mist-700: #61705f;
+
+  --shadow-soft: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset, 0 20px 44px -18px rgba(0, 0, 0, 0.65);
+  --shadow-lift: 0 30px 70px -20px rgba(0, 0, 0, 0.75);
+  --glow-emerald: 0 0 120px 20px rgba(53, 185, 104, 0.16);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--color-black-950);
+  color: var(--color-white-100);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+button { font: inherit; cursor: pointer; }
+h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.01em; }
+
+::selection { background: var(--color-emerald-500); color: var(--color-white-100); }
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-400);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-black-900); }
+::-webkit-scrollbar-thumb { background: var(--color-emerald-700); border-radius: 999px; }
+
+/* ---------- Motion primitives ---------- */
+@keyframes hh-fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes hh-float {
+  0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+  50% { transform: translateY(-18px) translateX(10px) scale(1.03); }
+}
+@keyframes hh-float-slow {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(16px) translateX(-14px); }
+}
+@keyframes hh-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes hh-pulse-glow {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.08); }
+}
+@keyframes hh-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.hh-reveal { opacity: 0; transform: translateY(18px); }
+.hh-reveal.is-visible { animation: hh-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+.hh-float { animation: hh-float 7s ease-in-out infinite; }
+.hh-float-slow { animation: hh-float-slow 9s ease-in-out infinite; }
+.hh-pulse-glow { animation: hh-pulse-glow 5s ease-in-out infinite; }
+.hh-marquee-track { animation: hh-marquee 26s linear infinite; }
+.hh-marquee-track:hover { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hh-reveal { opacity: 1; transform: none; animation: none; }
+  .hh-float, .hh-float-slow, .hh-pulse-glow, .hh-marquee-track { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- Reusable component-level utilities ---------- */
+.hh-container { max-width: 80rem; margin-inline: auto; padding-inline: 1.25rem; }
+@media (min-width: 640px) { .hh-container { padding-inline: 2rem; } }
+
+.hh-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.hh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  padding: 0.9rem 1.7rem;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  white-space: nowrap;
+}
+.hh-btn:hover { transform: translateY(-2px); }
+.hh-btn:active { transform: translateY(0); }
+
+.hh-btn-primary {
+  background: linear-gradient(135deg, var(--color-emerald-400), var(--color-emerald-600));
+  color: var(--color-white-100);
+  box-shadow: 0 14px 30px -10px rgba(34, 145, 79, 0.55);
+}
+.hh-btn-primary:hover { box-shadow: 0 20px 44px -12px rgba(34, 145, 79, 0.7); }
+
+.hh-btn-gold {
+  background: linear-gradient(135deg, var(--color-gold-400), var(--color-gold-600));
+  color: var(--color-black-950);
+  box-shadow: 0 14px 30px -10px rgba(205, 161, 85, 0.45);
+}
+.hh-btn-gold:hover { box-shadow: 0 20px 44px -12px rgba(205, 161, 85, 0.6); }
+
+.hh-btn-ghost {
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  color: var(--color-white-100);
+  background: rgba(255, 255, 255, 0.03);
+}
+.hh-btn-ghost:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.4); }
+
+.hh-btn-outline {
+  border: 1.5px solid var(--color-emerald-500);
+  color: var(--color-emerald-300);
+}
+.hh-btn-outline:hover { background: var(--color-emerald-600); color: var(--color-white-100); border-color: var(--color-emerald-600); }
+
+/* Glass card — the core surface language */
+.hh-card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 1.5rem;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease, border-color 0.45s ease;
+}
+.hh-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(107, 217, 146, 0.35);
+  box-shadow: var(--shadow-lift), 0 0 60px -18px rgba(53, 185, 104, 0.35);
+}
+
+.hh-glass {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.hh-input {
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-white-100);
+  padding: 0.9rem 1.4rem;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+.hh-input::placeholder { color: var(--color-mist-500); }
+.hh-input:focus { border-color: var(--color-emerald-400); box-shadow: 0 0 0 4px rgba(34, 145, 79, 0.18); background: rgba(255, 255, 255, 0.06); }
+
+.hh-field {
+  border-radius: 0.9rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--color-white-100);
+  padding: 0.8rem 1rem;
+  font-size: 0.9rem;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.hh-field::placeholder { color: var(--color-mist-700); }
+.hh-field:focus { border-color: var(--color-emerald-400); box-shadow: 0 0 0 4px rgba(34, 145, 79, 0.16); background: rgba(255, 255, 255, 0.06); }
+select.hh-field {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236bd992' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+}
+select.hh-field option { background: var(--color-charcoal-800); color: var(--color-white-100); }
+
+/* Labeled placeholder frame — stands in for real photography without
+   breaking layout when images are swapped in later. */
+.hh-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1.5px dashed rgba(255, 255, 255, 0.16);
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.01));
+}
+.hh-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.5;
+}
+
+.hh-link-underline {
+  position: relative;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1.5px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  padding-bottom: 2px;
+}
+.hh-link-underline:hover { background-size: 100% 1.5px; }
+
+/* Soft green glow — sits behind hero art / product imagery */
+.hh-glow {
+  position: absolute;
+  border-radius: 999px;
+  background: radial-gradient(closest-side, rgba(53, 185, 104, 0.55), rgba(53, 185, 104, 0) 72%);
+  filter: blur(6px);
+  pointer-events: none;
+}
+.hh-glow-gold {
+  background: radial-gradient(closest-side, rgba(227, 195, 124, 0.4), rgba(227, 195, 124, 0) 72%);
+}
+
+.hh-grain {
+  background-image: radial-gradient(rgba(255,255,255,0.35) 0.5px, transparent 0.5px);
+  background-size: 14px 14px;
+}
+
+.hh-noise-line {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+}
